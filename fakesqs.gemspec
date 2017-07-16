@@ -23,10 +23,10 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency "rspec", "~> 3.6"
   gem.add_development_dependency "rake", "~> 12.0"
+  gem.add_development_dependency "rack-test", "~> 0.7"
   gem.add_development_dependency "aws-sdk", "~> 2.0"
   gem.add_development_dependency "faraday", "~> 0.12"
   gem.add_development_dependency "thin", "~> 1.7"
   gem.add_development_dependency "verbose_hash_fetch", "~> 0.0"
   gem.add_development_dependency "activesupport", "~> 5.1"
-
 end
