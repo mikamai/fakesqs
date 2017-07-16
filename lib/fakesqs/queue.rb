@@ -38,7 +38,7 @@ module FakeSQS
     def attributes
       queue_attributes.merge(
         "QueueArn" => arn,
-        "ApproximateNumberOfMessages" => @messages.size,
+        "ApproximateNumberOfMessages" => published_size,
         "ApproximateNumberOfMessagesNotVisible" => @messages_in_flight.size,
       )
     end
@@ -61,10 +61,12 @@ module FakeSQS
       result = {}
 
       with_lock do
-        actual_amount = amount > size ? size : amount
+        actual_amount = amount > published_size ? published_size : amount
+        published_messages = @messages.select { |m| m.published? }
 
         actual_amount.times do
-          message = @messages.delete_at(rand(size))
+          message = published_messages.delete_at(rand(published_size))
+          @messages.delete(message)
           unless check_message_for_dlq(message, options)
             message.expire_at(default_visibility_timeout)
             message.receive!
@@ -166,6 +168,10 @@ module FakeSQS
 
     def size
       messages.size
+    end
+
+    def published_size
+      messages.select { |m| m.published? }.size
     end
 
     def generate_receipt
