@@ -1,6 +1,6 @@
 # MIT License
 
-Copyright (c) 2012 iain
+Copyright (c) 2012 Iain Hecker
 
 Copyright (c) 2017 William Tisäter
 

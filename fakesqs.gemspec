@@ -7,8 +7,8 @@ require 'fakesqs/version'
 Gem::Specification.new do |gem|
   gem.name          = "fakesqs"
   gem.version       = FakeSQS::VERSION
-  gem.author        = "iain"
-  gem.email         = "iain@iain.nl"
+  gem.authors       = ["Iain Hecker", "William Tisäter"]
+  gem.email         = "william@defunct.cc"
   gem.summary       = %q{Provides a fake SQS server that you can run locally to test against}
   gem.homepage      = "https://github.com/tiwilliam/fakesqs"
 
