@@ -210,7 +210,6 @@ RSpec.describe "Actions for Messages", :sqs do
   end
 
   specify 'set message timeout and wait for message to come' do
-
     body = 'some-sample-message'
 
     sqs.send_message(
@@ -300,6 +299,44 @@ RSpec.describe "Actions for Messages", :sqs do
     message = sqs.receive_message(queue_url: dlq_queue_url)
     expect(message.messages.size).to eq(1)
     expect(message.messages.first.message_id).to eq(message_id)
+  end
+
+  specify 'ChangeMessageVisibilityBatch' do
+    bodies = (1..10).map { |n| n.to_s }
+    sqs.send_message_batch(
+      queue_url: queue_url,
+      entries: bodies.map { |bd|
+        {
+          id: SecureRandom.uuid,
+          message_body: bd,
+        }
+      }
+    )
+    message = sqs.receive_message(
+      queue_url: queue_url,
+      max_number_of_messages: 10,
+      visibility_timeout: 0,
+    )
+
+    expect(message.messages.size).to eq(10)
+
+    sqs.change_message_visibility_batch(
+      queue_url: queue_url,
+      entries: message.messages.map { |m|
+        {
+          id: m.message_id,
+          receipt_handle: m.receipt_handle,
+          visibility_timeout: 10,
+        }
+      }
+    )
+
+    message = sqs.receive_message(
+      queue_url: queue_url,
+      max_number_of_messages: 10,
+    )
+
+    expect(message.messages.size).to eq(0)
   end
 
   def let_messages_in_flight_expire
