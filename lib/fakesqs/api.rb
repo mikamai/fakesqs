@@ -12,6 +12,7 @@ require 'fakesqs/actions/purge_queue'
 require 'fakesqs/actions/send_message_batch'
 require 'fakesqs/actions/get_queue_attributes'
 require 'fakesqs/actions/set_queue_attributes'
+require 'fakesqs/actions/list_dead_letter_source_queues'
 
 module FakeSQS
 
