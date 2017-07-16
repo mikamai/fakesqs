@@ -53,6 +53,7 @@ module FakeSQS
 
     def receive_message(options = {})
       amount = Integer options.fetch("MaxNumberOfMessages") { "1" }
+      visibility_timeout = Integer options.fetch("VisibilityTimeout") { default_visibility_timeout }
 
       fail ReadCountOutOfRange, amount if amount > 10
 
@@ -68,7 +69,7 @@ module FakeSQS
           message = published_messages.delete_at(rand(published_size))
           @messages.delete(message)
           unless check_message_for_dlq(message, options)
-            message.expire_at(default_visibility_timeout)
+            message.expire_at(visibility_timeout)
             message.receive!
             receipt = generate_receipt
             @messages_in_flight[receipt] = message
