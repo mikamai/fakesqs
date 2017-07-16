@@ -1,4 +1,5 @@
 require 'sinatra/base'
+
 require 'fakesqs/catch_errors'
 require 'fakesqs/error_response'
 
