@@ -1,4 +1,4 @@
-require 'fake_sqs/message'
+require 'fakesqs/message'
 
 RSpec.describe FakeSQS::Message do
 

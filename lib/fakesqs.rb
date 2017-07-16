@@ -1,22 +1,22 @@
-require 'fake_sqs/api'
-require 'fake_sqs/catch_errors'
-require 'fake_sqs/collection_view'
-require 'fake_sqs/error_response'
-require 'fake_sqs/message'
-require 'fake_sqs/queue'
-require 'fake_sqs/queue_factory'
-require 'fake_sqs/queues'
-require 'fake_sqs/responder'
-require 'fake_sqs/server'
-require 'fake_sqs/version'
-require 'fake_sqs/memory_database'
-require 'fake_sqs/file_database'
+require 'fakesqs/api'
+require 'fakesqs/catch_errors'
+require 'fakesqs/collection_view'
+require 'fakesqs/error_response'
+require 'fakesqs/message'
+require 'fakesqs/queue'
+require 'fakesqs/queue_factory'
+require 'fakesqs/queues'
+require 'fakesqs/responder'
+require 'fakesqs/server'
+require 'fakesqs/version'
+require 'fakesqs/memory_database'
+require 'fakesqs/file_database'
 
 module FakeSQS
 
   def self.to_rack(options)
 
-    require 'fake_sqs/web_interface'
+    require 'fakesqs/web_interface'
     app = FakeSQS::WebInterface
 
     if (log = options[:log])
@@ -28,13 +28,13 @@ module FakeSQS
     end
 
     if options[:verbose]
-      require 'fake_sqs/show_output'
+      require 'fakesqs/show_output'
       app.use FakeSQS::ShowOutput
       app.enable :logging
     end
 
     if options[:daemonize]
-      require 'fake_sqs/daemonize'
+      require 'fakesqs/daemonize'
       Daemonize.new(options).call
     end
 

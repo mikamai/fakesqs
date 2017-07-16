@@ -6,7 +6,7 @@ RSpec.describe "Actions for Messages", :sqs do
   QUEUE_NAME = "test"
 
   before do
-    sqs.config.endpoint = $fake_sqs.uri
+    sqs.config.endpoint = $fakesqs.uri
     sqs.create_queue(queue_name: QUEUE_NAME)
   end
 
@@ -55,8 +55,8 @@ RSpec.describe "Actions for Messages", :sqs do
     response = sqs.receive_message(
       queue_url: queue_url,
       attribute_names: ["All"]
-    ) 
-    
+    )
+
     received_time = Time.now.to_i * 1000
 
     expect(response.messages.first.attributes.reject{|k,v| k == "SenderId"}).to eq({
@@ -235,7 +235,7 @@ RSpec.describe "Actions for Messages", :sqs do
     expect(nothing.messages.size).to eq 0
 
     # Changed from sleep 5 to sleep 7 due to race conditions in Travis build
-    # see https://github.com/iain/fake_sqs/pull/32
+    # see https://github.com/iain/fakesqs/pull/32
     sleep(7)
 
     same_message = sqs.receive_message(
@@ -276,7 +276,7 @@ RSpec.describe "Actions for Messages", :sqs do
 
     dlq_arn = sqs.get_queue_attributes(queue_url: dlq_queue_url).attributes.fetch("QueueArn")
     sqs.set_queue_attributes(
-      queue_url: queue_url, 
+      queue_url: queue_url,
       attributes: {
         "RedrivePolicy" => "{\"deadLetterTargetArn\":\"#{dlq_arn}\",\"maxReceiveCount\":2}"
       }
@@ -288,7 +288,7 @@ RSpec.describe "Actions for Messages", :sqs do
     ).message_id
 
 
-    2.times do 
+    2.times do
       message = sqs.receive_message(queue_url: queue_url)
       expect(message.messages.size).to eq(1)
       expect(message.messages.first.message_id).to eq(message_id)
@@ -303,7 +303,7 @@ RSpec.describe "Actions for Messages", :sqs do
   end
 
   def let_messages_in_flight_expire
-    $fake_sqs.expire
+    $fakesqs.expire
   end
 
   def expire_message(message)

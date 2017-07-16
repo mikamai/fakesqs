@@ -1,4 +1,4 @@
-require 'fake_sqs/show_output'
+require 'fakesqs/show_output'
 
 RSpec.describe FakeSQS::ShowOutput do
 

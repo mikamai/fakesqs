@@ -1,4 +1,4 @@
-require 'fake_sqs/responder'
+require 'fakesqs/responder'
 require 'active_support/core_ext/hash'
 require 'verbose_hash_fetch'
 

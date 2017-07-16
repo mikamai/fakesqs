@@ -4,7 +4,7 @@ RSpec.describe "Actions for Queues", :sqs do
 
   let(:sqs) { Aws::SQS::Client.new }
   before do
-    sqs.config.endpoint = $fake_sqs.uri
+    sqs.config.endpoint = $fakesqs.uri
   end
 
   specify "CreateQueue" do

@@ -1,4 +1,4 @@
-require 'fake_sqs/api'
+require 'fakesqs/api'
 
 class FakeSQS::Actions::TheAction
 

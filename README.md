@@ -1,4 +1,4 @@
-# Fake SQS [![Build Status](https://secure.travis-ci.org/iain/fake_sqs.png)](http://travis-ci.org/iain/fake_sqs)
+# Fake SQS [![Build Status](https://secure.travis-ci.org/tiwilliam/fakesqs.png)](http://travis-ci.org/tiwilliam/fakesqs)
 
 Inspired by [Fake DynamoDB] [fake_dynamo], this is an AWS SQS compatible
 message queue that can be ran locally. This makes it ideal for integration
@@ -40,26 +40,26 @@ PS. There is also [Fake SNS] [fake_sns].
 To install:
 
 ```
-$ gem install fake_sqs
+$ gem install fakesqs
 ```
 
 To start:
 
 ```
-$ fake_sqs
+$ fakesqs
 ```
 
 To configure, see the options in the help:
 
 ```
-$ fake_sqs --help
+$ fakesqs --help
 ```
 
 By default, FakeSQS uses an in-memory database (just a hash actually). To make
 it persistant, run with:
 
 ```
-$ fake_sqs --database /path/to/database.yml
+$ fakesqs --database /path/to/database.yml
 ```
 
 Messages are not persisted, just the queues.
@@ -114,7 +114,7 @@ When making integration tests for your app, you can easily include Fake SQS.
 Here are the methods you need to run FakeSQS programmatically.
 
 ``` ruby
-require "fake_sqs/test_integration"
+require "fakesqs/test_integration"
 
 # globally, before the test suite starts:
 AWS.config(
@@ -124,14 +124,14 @@ AWS.config(
   access_key_id:      "fake access key",
   secret_access_key:  "fake secret key",
 )
-fake_sqs = FakeSQS::TestIntegration.new
+fakesqs = FakeSQS::TestIntegration.new
 
 # before each test that requires SQS:
-fake_sqs.start
+fakesqs.start
 
 # at the end of the suite:
 at_exit {
-  fake_sqs.stop
+  fakesqs.stop
 }
 ```
 
@@ -150,9 +150,9 @@ AWS.config(
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
-  config.before(:suite) { $fake_sqs = FakeSQS::TestIntegration.new }
-  config.before(:each, :sqs) { $fake_sqs.start }
-  config.after(:suite) { $fake_sqs.stop }
+  config.before(:suite) { $fakesqs = FakeSQS::TestIntegration.new }
+  config.before(:each, :sqs) { $fakesqs.start }
+  config.after(:suite) { $fakesqs.stop }
 end
 ```
 

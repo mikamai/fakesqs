@@ -1,4 +1,4 @@
-require 'fake_sqs/queue_factory'
+require 'fakesqs/queue_factory'
 
 RSpec.describe FakeSQS::QueueFactory do
 

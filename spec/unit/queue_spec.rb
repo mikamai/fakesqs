@@ -1,5 +1,5 @@
-require 'fake_sqs/queue'
-require 'fake_sqs/message'
+require 'fakesqs/queue'
+require 'fakesqs/message'
 
 RSpec.describe FakeSQS::Queue do
 

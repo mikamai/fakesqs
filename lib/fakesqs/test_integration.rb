@@ -95,7 +95,7 @@ module FakeSQS
     end
 
     def binfile
-      File.expand_path("../../../bin/fake_sqs", __FILE__)
+      File.expand_path("../../../bin/fakesqs", __FILE__)
     end
 
     def out

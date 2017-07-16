@@ -1,5 +1,5 @@
 require 'securerandom'
-require 'fake_sqs/collection_view'
+require 'fakesqs/collection_view'
 require 'json'
 module FakeSQS
 

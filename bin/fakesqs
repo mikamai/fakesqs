@@ -3,7 +3,7 @@
 lib = File.expand_path("../../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-require 'fake_sqs'
+require 'fakesqs'
 require 'optparse'
 
 options = {
@@ -49,7 +49,7 @@ parser = OptionParser.new do |o|
   end
 
   o.on_tail "--version", "Shows the version" do
-    puts "fake_sqs version #{FakeSQS::VERSION}"
+    puts "fakesqs version #{FakeSQS::VERSION}"
     exit
   end
 

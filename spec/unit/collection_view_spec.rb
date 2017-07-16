@@ -1,4 +1,4 @@
-require 'fake_sqs/collection_view'
+require 'fakesqs/collection_view'
 
 RSpec.describe FakeSQS::CollectionView do
 

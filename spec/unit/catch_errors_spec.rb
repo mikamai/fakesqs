@@ -1,4 +1,4 @@
-require 'fake_sqs/catch_errors'
+require 'fakesqs/catch_errors'
 
 RSpec.describe FakeSQS::CatchErrors do
 
