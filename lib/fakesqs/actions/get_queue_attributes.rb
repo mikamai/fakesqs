@@ -8,7 +8,7 @@ module FakeSQS
         @responder = options.fetch(:responder)
       end
 
-      def call(queue_name, params)
+      def call(queue_name, params = {})
         queue = @queues.get(queue_name)
         @responder.call :GetQueueAttributes do |xml|
           queue.attributes.each do |name, value|

@@ -8,7 +8,7 @@ module FakeSQS
         @responder = options.fetch(:responder)
       end
 
-      def call(name, params)
+      def call(name, params = {})
         queue = @queues.get(name)
         filtered_attribute_names = []
         params.select{|k,v | k =~ /AttributeName\.\d+/}.each do |key, value|

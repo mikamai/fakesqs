@@ -8,7 +8,7 @@ module FakeSQS
         @responder = options.fetch(:responder)
       end
 
-      def call(name, params)
+      def call(name, params = {})
         queue_arn = @queues.get(name).arn
         queue_urls = @queues.list.select do |queue|
           redrive_policy = queue.attributes.fetch("RedrivePolicy", nil)

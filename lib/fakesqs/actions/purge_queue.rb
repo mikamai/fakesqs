@@ -8,7 +8,7 @@ module FakeSQS
         @responder = options.fetch(:responder)
       end
 
-      def call(name, params)
+      def call(name, params = {})
         queue = @queues.get(name)
         queue.reset()
         @responder.call :PurgeQueue
